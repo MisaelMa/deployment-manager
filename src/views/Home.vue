@@ -39,7 +39,9 @@
             <v-tab-item :value="`tab-2`">
                 <v-card flat>
                     <v-card-text>
-                        <FolderExplorer/>
+                        {{state.path}}
+                        <FolderExplorer :path="state.path"
+                                        @folder="selectFolder"/>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
@@ -48,7 +50,7 @@
 </template>
 
 <script>
-    import {createComponent} from '@vue/composition-api';
+    import {createComponent, reactive} from '@vue/composition-api';
     import {mdiFormatListBulletedType} from '@mdi/js';
     import {mdiApplicationImport} from '@mdi/js';
     import FolderExplorer from '@/components/folder/FolderExplorer';
@@ -60,14 +62,21 @@
         },
         setup() {
             const model = 'tab-2';
-            const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed';
+            const state = reactive({
+                path: '/home/misael/Documentos/videos/thumbnail',
+            });
             const formatListBulletedType = mdiFormatListBulletedType;
             const applicationImport = mdiApplicationImport
+            const selectFolder = (data) => {
+                state.path = data;
+                console.log('resulta ' + data)
+            }
             return {
                 model,
-                text,
                 formatListBulletedType,
-                applicationImport
+                applicationImport,
+                selectFolder,
+                state
             }
         }
     });
