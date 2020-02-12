@@ -14,3 +14,18 @@
     });
     export default App
 </script>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
+    html, body {
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+
+    #app {
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+    v-application {
+        font-family: ‘Quicksand’, sans-serif;
+    }
+
+</style>

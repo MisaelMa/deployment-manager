@@ -1,0 +1,8 @@
+query($name: String!) {
+pathfind(name: $name){
+  id
+  name
+  path
+  ext
+}
+}

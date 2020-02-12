@@ -1,0 +1,13 @@
+# Write your query or mutation here
+mutation addDeploy($name: String!, $path: String!, $fram:String!){
+    addDeployment(newDeploymentData:{
+        name: $name,
+        pathFolder: $path,
+        framework: $fram
+    }){
+        uuid
+        name
+        pathFolder
+        framework
+    }
+}

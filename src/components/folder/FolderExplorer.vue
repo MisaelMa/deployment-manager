@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <v-system-bar color="green lighten-4" lights-out height="35" style="border-radius: 6px">
+        <v-system-bar color="blue lighten-4" lights-out height="35" style="border-radius: 6px">
             {{paths}}
             <v-btn style="border-radius: 4px; height: 25px; width: 25px; min-width: 26px"
                    class="mr-1"
@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts">
-    import {computed, createComponent, onMounted, onUpdated, reactive, watch} from '@vue/composition-api';
+    import {computed, createComponent, reactive} from '@vue/composition-api';
     import {mdiChevronUp} from '@mdi/js';
     import {mdiFolder} from '@mdi/js';
     import {mdiRefresh} from '@mdi/js';
@@ -78,10 +78,9 @@
     import {mdiDotsVertical} from '@mdi/js';
 
     interface FolderProps {
-        count: number;
-        path: string;
+        count: number
+        path: string
     }
-
     const FolderExplorer = createComponent({
         props: {
             count: Number,
@@ -188,8 +187,6 @@
     .vue-ui-input > .contentvue > .input-wrapper > .input {
         position: relative;
         z-index: 1;
-        font-family: inherit;
-        font-size: 14px;
         line-height: 14px;
         color: #2c3e50;
         padding: 0;

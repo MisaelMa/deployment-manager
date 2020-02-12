@@ -1,7 +1,7 @@
 <template>
     <v-card>
         <v-toolbar
-                color="green darken-1"
+                color="blue darken-1"
                 dark
                 flat
         >
@@ -32,20 +32,62 @@
             <v-tab-item :value="`tab-1`">
                 <v-card flat>
                     <v-card-text>
-                        <FolderExplorer/>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
-            <v-tab-item :value="`tab-2`">
-                <v-card flat>
-                    <v-card-text>
-                        {{state.path}}
-                        <FolderExplorer :path="state.path"
-                                        @folder="selectFolder"/>
-                    </v-card-text>
-                </v-card>
+            <v-tab-item :value="`tab-2`" class="elevation-0">
+                <v-sheet height="100%" class="pa-3" elevation="0">
+                    <FolderExplorer :path="state.path"
+                                    @folder="selectFolder"/>
+                    <v-container fill-height fluid>
+                        <v-row align="center"
+                               justify="center">
+                            <v-col cols="12" sm="12" md="6" lg="6">
+
+                                <div class="scroll elevation-0 " scrollable style="height: 450px;">
+
+                                    <v-list two-line subheader elevation="0" v-if="!loading">
+                                        <template v-for="(item,index) in result.pathfind">
+                                            <v-list-item :key="item.name">
+                                                <v-list-item-avatar @click="selectFolder(item.path)">
+                                                    <v-icon
+                                                            class="blue--text"
+                                                            style="font-size:10px"
+                                                    >{{ item.ext === 'folder' ? Folder : HeadQuestionOutline}}
+                                                    </v-icon>
+                                                </v-list-item-avatar>
+
+                                                <v-list-item-content @click="selectFolder(item.path)">
+                                                    <v-list-item-title v-text="item.name"></v-list-item-title>
+                                                    <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
+                                                </v-list-item-content>
+
+                                                <v-list-item-action>
+                                                    <v-btn icon
+                                                           @click="sendMessage({
+                                                    name: item.name,
+                                                     path: item.path,
+                                                     fram: 'vue'
+                                                    })"
+                                                    >
+                                                        <v-icon color="blue lighten-1">{{cloudOutline}}</v-icon>
+                                                    </v-btn>
+                                                </v-list-item-action>
+                                            </v-list-item>
+                                            <v-divider
+                                                    v-if="index + 1 < result.pathfind.length"
+                                                    :key="item.id"
+                                            ></v-divider>
+                                        </template>
+                                    </v-list>
+                                </div>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-sheet>
             </v-tab-item>
         </v-tabs-items>
+
     </v-card>
 </template>
 
@@ -53,32 +95,77 @@
     import {createComponent, reactive} from '@vue/composition-api';
     import {mdiFormatListBulletedType} from '@mdi/js';
     import {mdiApplicationImport} from '@mdi/js';
+    import {useQuery, useMutation} from '@vue/apollo-composable'
     import FolderExplorer from '@/components/folder/FolderExplorer';
+    import messages from '@/graphql/Messages.gql';
+    import addDeploy from '@/graphql/addDeployment.gql';
+    import {mdiFolder} from '@mdi/js';
+    import {mdiHeadQuestionOutline} from '@mdi/js';
+    import {mdiCloudOutline} from '@mdi/js';
 
     const Home = createComponent({
         // type inference enabled
         components: {
-            FolderExplorer
+            FolderExplorer,
         },
         setup() {
             const model = 'tab-2';
             const state = reactive({
                 path: '/home/misael/Documentos/videos/thumbnail',
             });
+            const Folder = mdiFolder
+            const HeadQuestionOutline = mdiHeadQuestionOutline
             const formatListBulletedType = mdiFormatListBulletedType;
             const applicationImport = mdiApplicationImport
+            const cloudOutline = mdiCloudOutline;
+            const {result, loading, refetch} = useQuery(messages, {'name': state.path});
+            const {mutate: sendMessage} = useMutation(addDeploy);
             const selectFolder = (data) => {
+                refetch({'name': data})
                 state.path = data;
-                console.log('resulta ' + data)
             }
             return {
                 model,
                 formatListBulletedType,
                 applicationImport,
                 selectFolder,
-                state
+                state,
+                result,
+                loading,
+                Folder,
+                HeadQuestionOutline,
+                cloudOutline,
+                sendMessage
             }
         }
     });
     export default Home
 </script>
+
+<style scoped>
+    .scroll {
+        overflow-y: auto;
+    }
+
+    .scroll::-webkit-scrollbar {
+        width: 0px !important;
+        scroll-behavior: smooth !important;
+    }
+
+    ::-webkit-scrollbar {
+        width: 0px !important;
+        scroll-behavior: smooth !important;
+        height: 10px;
+        border-radius: 50%;
+    }
+
+    ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 50px #3c73fc !important;
+        border-radius: 10px !important;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        outline: 1px solid slategrey !important;
+        border-radius: 10px !important;
+    }
+</style>
