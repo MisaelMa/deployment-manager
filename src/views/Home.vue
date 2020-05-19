@@ -32,6 +32,7 @@
             <v-tab-item :value="`tab-1`">
                 <v-card flat>
                     <v-card-text>
+                        <MyProjects/>
                     </v-card-text>
                 </v-card>
             </v-tab-item>
@@ -49,25 +50,33 @@
                                     <v-list two-line subheader elevation="0" v-if="!loading">
                                         <template v-for="(item,index) in result.pathfind">
                                             <v-list-item :key="item.name">
-                                                <v-list-item-avatar @click="selectFolder(item.path)">
-                                                    <v-icon
+                                                <v-list-item-avatar :tile="item.framework === 'folder' ? false : true"
+                                                                    @click="selectFolder(item.path)">
+                                                    <v-icon v-if="item.framework==='folder'"
                                                             class="blue--text"
                                                             style="font-size:10px"
-                                                    >{{ item.ext === 'folder' ? Folder : HeadQuestionOutline}}
+                                                    >{{ item.framework === 'folder' ? Folder : HeadQuestionOutline}}
                                                     </v-icon>
+                                                    <img v-else
+                                                         :src="imageproject(item.framework)"
+                                                         alt="John"
+                                                    >
                                                 </v-list-item-avatar>
 
                                                 <v-list-item-content @click="selectFolder(item.path)">
-                                                    <v-list-item-title v-text="item.name"></v-list-item-title>
-                                                    <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
+                                                    <v-list-item-title>
+                                                        {{item.name}}
+                                                    </v-list-item-title>
+                                                    <v-list-item-subtitle
+                                                            v-text="item.framework"></v-list-item-subtitle>
                                                 </v-list-item-content>
 
-                                                <v-list-item-action>
+                                                <v-list-item-action v-if="item.framework==='folder'? false : true">
                                                     <v-btn icon
                                                            @click="sendMessage({
                                                     name: item.name,
                                                      path: item.path,
-                                                     fram: 'vue'
+                                                     fram: item.framework
                                                     })"
                                                     >
                                                         <v-icon color="blue lighten-1">{{cloudOutline}}</v-icon>
@@ -97,22 +106,26 @@
     import {mdiApplicationImport} from '@mdi/js';
     import {useQuery, useMutation} from '@vue/apollo-composable'
     import FolderExplorer from '@/components/folder/FolderExplorer';
+    import MyProjects from '@/components/MyProjects'
     import messages from '@/graphql/Messages.gql';
     import addDeploy from '@/graphql/addDeployment.gql';
     import {mdiFolder} from '@mdi/js';
     import {mdiHeadQuestionOutline} from '@mdi/js';
     import {mdiCloudOutline} from '@mdi/js';
+    import {useGetPosts} from '@/utils/useGuest';
 
     const Home = createComponent({
         // type inference enabled
         components: {
+            MyProjects,
             FolderExplorer,
         },
         setup() {
-            const model = 'tab-2';
+            const model = 'tab-1';
             const state = reactive({
-                path: '/home/misael/Documentos/videos/thumbnail',
+                path: '/home/misael/Documentos/misproyectos/signati',
             });
+            const {state: a} = useGetPosts()
             const Folder = mdiFolder
             const HeadQuestionOutline = mdiHeadQuestionOutline
             const formatListBulletedType = mdiFormatListBulletedType;
@@ -124,20 +137,41 @@
                 refetch({'name': data})
                 state.path = data;
             }
+            const imageproject = (picture) => {
+
+                switch (picture) {
+                    case 'angular':
+                        return require('@/assets/angular.svg')
+                    case 'nestjs':
+                        return require('@/assets/nestjs.svg')
+                    case 'vuejs':
+                        return require('@/assets/vue.svg')
+                    case 'nuxtjs':
+                        return 'nuxtjs';
+                    case 'reactjs':
+                        return require('@/assets/react.png')
+                    case 'esveltjs':
+                        return 'esveltjs';
+                    default:
+                        return 'folder';
+                }
+            }
             return {
                 model,
                 formatListBulletedType,
                 applicationImport,
                 selectFolder,
+                imageproject,
                 state,
                 result,
                 loading,
                 Folder,
                 HeadQuestionOutline,
                 cloudOutline,
-                sendMessage
+                sendMessage,
             }
         }
+
     });
     export default Home
 </script>

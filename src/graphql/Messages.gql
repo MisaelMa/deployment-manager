@@ -4,5 +4,6 @@ pathfind(name: $name){
   name
   path
   ext
+  framework
 }
 }

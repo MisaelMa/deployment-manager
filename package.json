@@ -11,10 +11,16 @@
     "apollo:schema:publish": "vue-cli-service apollo:schema:publish",
     "apollo:start": "vue-cli-service apollo:start"
   },
+  "deployment": {
+    "type": "vuejs"
+  },
   "dependencies": {
+    "@evlad/vue-terminal-ui": "^0.3.4",
+    "@jsmith21/vue-terminal": "^1.1.6",
     "@mdi/js": "^4.9.95",
     "@vue/apollo-composable": "^4.0.0-alpha.6",
     "@vue/composition-api": "^0.3.4",
+    "apollo-link-ws": "^1.0.19",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "graphql-type-json": "^0.2.1",
@@ -22,12 +28,20 @@
     "mkdirp": "^0.5.1",
     "register-service-worker": "^1.6.2",
     "shortid": "^2.2.8",
+    "subscriptions-transport-ws": "^0.9.16",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.2",
+    "vue-command": "^7.1.7",
     "vue-property-decorator": "^8.3.0",
     "vue-router": "^3.1.5",
+    "vue-term": "^0.1.2",
+    "vue-terminal": "^1.1.0",
+    "vue-terminal-ui": "^0.1.6",
     "vuetify": "^2.2.10",
-    "vuex": "^3.1.2"
+    "vuex": "^3.1.2",
+    "xterm": "^4.4.0",
+    "xterm-addon-fit": "^0.3.0",
+    "xterm-addon-web-links": "^0.2.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.18.0",

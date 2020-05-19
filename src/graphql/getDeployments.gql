@@ -1,0 +1,9 @@
+query {
+    getDeployments {
+        uuid
+        name
+        pathFolder
+        framework
+        open
+    }
+}

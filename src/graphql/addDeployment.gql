@@ -1,6 +1,6 @@
 # Write your query or mutation here
-mutation addDeploy($name: String!, $path: String!, $fram:String!){
-    addDeployment(newDeploymentData:{
+mutation addBusiness($name: String!, $path: String!, $fram:String!){
+    addBusiness(newDeploymentData:{
         name: $name,
         pathFolder: $path,
         framework: $fram
