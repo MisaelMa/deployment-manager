@@ -1,0 +1,12 @@
+# Write your query or mutation here
+mutation OpenDeploymentApp($uuid: Float!){
+    OpenDeployment(
+       uuid: $uuid
+    ){
+        uuid
+        name
+        pathFolder
+        framework
+        open
+    }
+}

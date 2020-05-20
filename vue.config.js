@@ -1,12 +1,16 @@
 module.exports = {
-  "transpileDependencies": [
-    "vuetify"
-  ],
-
-  pluginOptions: {
-    apollo: {
-      enableMocks: true,
-      enableEngine: true
-    }
+  chainWebpack: config => {
+    config.module
+        .rule('vue')
+        .use('vue-loader')
+        .loader('vue-loader')
+        .tap(options => {
+          options.transpileOptions = {
+            transforms: {
+              dangerousTaggedTemplateString: true,
+            },
+          }
+          return options
+        })
   }
 }

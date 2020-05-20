@@ -85,6 +85,7 @@
       "@typescript-eslint/no-empty-function": "error",
       "@typescript-eslint/no-use-before-define": "off",
       "@typescript-eslint/no-explicit-any": "off",
+      "no-mixed-spaces-and-tabs": "off",
       "@typescript-eslint/member-delimiter-style": [
         "error",
         {

@@ -1,18 +1,65 @@
+
+
 declare module '*.vue' {
-    import Vue from 'vue'
-    export default Vue
+    import Vue from 'vue';
+    export default Vue;
 }
-declare module 'vue-command' {
-
-}
-declare module 'vue-terminal-ui' {
-
+declare module '*.bmp' {
+    const src: string;
+    export default src;
 }
 
-declare module '@evlad/vue-terminal-ui' {
+declare module '*.gif' {
+    const src: string;
+    export default src;
+}
+
+declare module '*.jpg' {
+    const src: string;
+    export default src;
+}
+
+declare module '*.jpeg' {
+    const src: string;
+    export default src;
+}
+
+declare module '*.png' {
+    const src: string;
+    export default src;
+}
+
+declare module '*.gql' {
+    import { DocumentNode } from 'graphql';
+    const content:  DocumentNode
+    export default content;
+}
+
+
+declare module '*.webp' {
+    const src: string;
+    export default src;
+}
+
+declare module '*.module.css' {
+    const classes: { readonly [key: string]: string };
+    export default classes;
+}
+
+declare module '*.module.scss' {
+    const classes: { readonly [key: string]: string };
+    export default classes;
+}
+
+declare module '*.module.sass' {
+    const classes: { readonly [key: string]: string };
+    export default classes;
+}
+declare module '*.json' {
 
 }
 
-declare module 'vue-terminal' {
-
-}
+declare module '*.rtf';
+declare module '@types/vue-terminal-ui';
+declare module '@evlad/vue-terminal-ui';
+declare module 'vue-terminal-ui';
