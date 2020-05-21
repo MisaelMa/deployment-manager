@@ -1,13 +1,13 @@
-# prueba
+# prueba realizada por JOSE ALBERTO MARIN COH
 
-## Project setup
+## Project setup hecho
 ```
-npm install
+npm install ejecutado
 ```
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run serve finalizado
 ```
 
 ### Compiles and minifies for production
