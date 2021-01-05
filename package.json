@@ -21,7 +21,7 @@
     "@vue/apollo-composable": "^4.0.0-alpha.6",
     "@vue/composition-api": "^0.3.4",
     "apollo-link-ws": "^1.0.19",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.4",
     "graphql-type-json": "^0.2.1",
     "lowdb": "^1.0.0",
